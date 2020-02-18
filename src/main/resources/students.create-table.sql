@@ -1,1 +1,0 @@
-create table IF NOT EXISTS management_system.students(id int auto_increment primary key, name text not null, password text not null)

@@ -1,1 +1,0 @@
-create table IF NOT EXISTS management_system.courses(id int auto_increment primary key,name text not null, instructor text not null)
