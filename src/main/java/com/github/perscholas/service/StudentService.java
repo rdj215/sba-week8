@@ -45,23 +45,43 @@ public class StudentService implements StudentDao {
         return list;
     }
 
-    @Override
+
     public StudentInterface getStudentByEmail(String studentEmail) {
+        try {
+            String sqlStatement = "SELECT * FROM `student` " +
+                    "WHERE `email`'=' " + studentEmail + "';'";
+            ResultSet result = dbc.executeQuery(sqlStatement);
+            while(result.next()){
+                 String foundStudentEmail = result.getString("email");
+                 String foundName = result.getString("name");
+                 String foundPassword = result.getString("password");
+                return new Student(foundStudentEmail,foundName,foundPassword);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
-        return null;
+    StudentInterface student = getStudentByEmail(studentEmail);
+    if(student != null){
+        return password.equals(student.getPassword());
+    }
+        return false;
     }
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
-
+    StudentInterface student = getStudentByEmail(studentEmail);
+    CourseInterface course= new CourseService().getCourseById(courseId);
+    String sqlStatement = "insert into studentRegistration (courseId, email) values (" + course.getId()+ student.getEmail()+"');'";
     }
 
     @Override
     public List<CourseInterface> getStudentCourses(String studentEmail) {
-        return null;
+        return new StudentRegistrationService().getAllRegisteredCourses(studentEmail);
+
     }
 }

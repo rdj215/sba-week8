@@ -14,16 +14,22 @@ public class SchoolManagementSystem implements Runnable {
     @Override
     public void run() {
         String smsDashboardInput = getSchoolManagementSystemDashboardInput();
-        if ("login".equals(smsDashboardInput)) {
+        if ("login".equals(smsDashboardInput.trim())) {
             StudentDao studentService = new StudentService(DatabaseConnection.MARIADB);
             String studentEmail = console.getStringInput("Enter your email:");
             String studentPassword = console.getStringInput("Enter your password:");
             Boolean isValidLogin = studentService.validateStudent(studentEmail, studentPassword);
             if (isValidLogin) {
+                while (true){
                 String studentDashboardInput = getStudentDashboardInput();
                 if ("register".equals(studentDashboardInput)) {
                     Integer courseId = getCourseRegistryInput();
                     studentService.registerStudentToCourse(studentEmail, courseId);
+                }else if("courses".equals(studentDashboardInput.trim())){
+                    System.out.println(studentService.getStudentCourses(studentEmail));
+                }else {
+                    break;
+                  }
                 }
             }
         }
@@ -41,7 +47,7 @@ public class SchoolManagementSystem implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Student Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ register ], [ logout]")
+                .append("\n\t[ register ], [courses], [ logout]")
                 .toString());
     }
 

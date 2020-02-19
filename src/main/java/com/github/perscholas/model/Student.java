@@ -1,5 +1,6 @@
 package com.github.perscholas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,8 +10,11 @@ import javax.persistence.Table;
 @Table(name="STUDENT")
 public class Student implements StudentInterface {
     @Id
+    @Column(name = "email")
     private String email;
+    @Column(name = "name")
     private String name;
+    @Column(name = "password")
     private String password;
 
     public Student(String email, String name, String password) {

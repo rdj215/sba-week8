@@ -1,5 +1,6 @@
 package com.github.perscholas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,8 +8,11 @@ import javax.persistence.Id;
 @Entity
 public class Course {
     @Id
+    @Column(name = "id")
     Integer id;
+    @Column(name = "name")
     String name;
+    @Column(name = "instructor")
     String instructor;
 
     public Course() {
