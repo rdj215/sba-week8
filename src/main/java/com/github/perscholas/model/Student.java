@@ -1,7 +1,14 @@
 package com.github.perscholas.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 // TODO - Annotate and Implement respective interface and define behaviors
+@Entity
+@Table(name="STUDENT")
 public class Student implements StudentInterface {
+    @Id
     private String email;
     private String name;
     private String password;

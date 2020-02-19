@@ -22,14 +22,15 @@ public class StudentService implements StudentDao {
     }
 
     public StudentService() {
-        this(DatabaseConnection.MYSQL);
+        this(DatabaseConnection.MARIADB);
     }
 
     @Override
     public List<StudentInterface> getAllStudents() {
-        ResultSet result = dbc.executeQuery("SELECT * FROM students");
+//        ResultSet result = dbc.executeQuery("SELECT * FROM students");
         List<StudentInterface> list = new ArrayList<>();
         try {
+            ResultSet result = dbc.executeQuery("SELECT * FROM students");
             while (result.next()) {
                 String studentEmail = result.getString("email");
                 String name = result.getString("name");
